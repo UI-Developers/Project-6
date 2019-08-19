@@ -6,17 +6,17 @@ document.addEventListener('DOMContentLoaded', () => {
 	const phraseUl = document.querySelector('#phrase ul');
 	const buttons = document.getElementsByTagName('button');
 	const li = document.getElementsByTagName('li');
-	const ol = document.getElementsByTagName('ol');
+	const ol = document.getElementsByTagName('ol')[0];
 	const container = document.querySelector('.main-container');
 	const winMessage = "You Win!";
 	const loseMessage = "You Lose!";
-	var isGameStarted = false;
+	const heartsCounter = 5;
+	var gameStarted = false;
 
+	let h3 = document.createElement('h3');
 	let randPhrase;
 	let charactersLoop;
-
 	let missed = 0;
-
 	let phrases = [
 		'treehouse rocks', 
 		'learn coding now',
@@ -60,12 +60,13 @@ document.addEventListener('DOMContentLoaded', () => {
 	}
 
 	var phraseArray = getRandomPhraseAsArray(phrases);
-
 	var availableLetters = addPhraseToDisplay(phraseArray);
 
 	function removeHeart() {
 		var li = document.querySelector('li.tries');
 		li.remove();
+		var lostHeart = createElementFromHTML('<img src="images/lostHeart.png" height="35px" width="30px">');
+		ol.appendChild(lostHeart);
 	}
 
 	function screenState(itswon) {
@@ -80,7 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		var lose = container.appendChild(divOverlay);
 		lose.className = stateClassName;
 		btnReset.textContent = "Try Again";
-		var h3 = document.createElement('h3');
+		// var h3 = document.createElement('h3');
 		h3.textContent = message; 
 		divOverlay.appendChild(h3);
 	}
@@ -93,19 +94,19 @@ document.addEventListener('DOMContentLoaded', () => {
 				liList[i].className += " show";
 				letterFound += liList[i];
 				button.className = "chosen";
-				button.setAttribute("disabled", "disabled");
 			} 
 		}
 		if (letterFound === "") {
 			button.className = "error-chosen";
-			button.setAttribute("disabled", "disabled");
 			missed += 1;
 			removeHeart();
 		}
+		button.disabled = true;
 
 		var letters = document.querySelectorAll('.letter').length;
 		var show = document.querySelectorAll('.show').length;
-		if (missed === 5) {
+
+		if (missed === heartsCounter) {
 			screenState(false);
 		}
 		if (letters === show) {
@@ -114,25 +115,51 @@ document.addEventListener('DOMContentLoaded', () => {
 		return letterFound;
 	}
 
+	function createElementFromHTML(htmlString) {
+		var li = document.createElement('li');
+		li.classList.add('tries');
+		li.innerHTML = htmlString.trim();
+		return li;
+	}
+
+	function resetHeart() {
+		missed = 0;
+		for (var i = 0; i < heartsCounter; i++) {
+			var liveHeart = createElementFromHTML('<img src="images/liveHeart.png" height="35px" width="30px">');
+			ol.appendChild(liveHeart);  
+		}
+	}
+
 
 	btnReset.addEventListener('click', () => {
-		if (isGameStarted === true) {
-			location.reload(true);
-			// divOverlay.remove();
-			// phraseUl.innerHTML = "";
-			// var chosen_buttons = document.querySelectorAll(".chosen");
-			// for (var i = 0; i < chosen_buttons.length; i++) {
-			// 	chosen_buttons[i].classList.remove("chosen");		
-			// }
-			// var error_chosen_buttons = document.querySelectorAll(".error-chosen"); 
-			// for (var i = 0; i < error_chosen_buttons.length; i++) {
-			// 	error_chosen_buttons[i].classList.remove("error-chosen");		
-			// }
-			// phraseArray = getRandomPhraseAsArray(phrases);
-	  //   availableLetters = addPhraseToDisplay(phraseArray);
+		if (gameStarted === true) {
+			divOverlay.remove();
+			phraseUl.innerHTML = "";
+			var chosen_buttons = document.querySelectorAll(".chosen");
+			for (var i = 0; i < chosen_buttons.length; i++) {
+				chosen_buttons[i].classList.remove("chosen");		
+			}
+			var calledButtons = document.querySelectorAll('button');
+			for (var i = 0; i < calledButtons.length; i++) {
+				calledButtons[i].disabled = false;		
+			}
+			var error_chosen_buttons = document.querySelectorAll(".error-chosen"); 
+			for (var i = 0; i < error_chosen_buttons.length; i++) {
+				error_chosen_buttons[i].classList.remove("error-chosen");		
+			}
+			var child = ol.lastElementChild;
+			while(child) {
+				ol.removeChild(child);
+				child = ol.lastElementChild;
+			}
+
+			resetHeart();
+			
+			phraseArray = getRandomPhraseAsArray(phrases);
+	    availableLetters = addPhraseToDisplay(phraseArray);
 		} else {
 			divOverlay.remove();
-			isGameStarted = true;
+			gameStarted = true;
 		}
 	});
 
@@ -149,4 +176,3 @@ document.addEventListener('DOMContentLoaded', () => {
 	addEventToButton(buttons);
 
 });
-
