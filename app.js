@@ -11,9 +11,9 @@ document.addEventListener('DOMContentLoaded', () => {
 	const winMessage = "You Win!";
 	const loseMessage = "You Lose!";
 	const heartsCounter = 5;
+	const h3 = document.createElement('h3');
 	var gameStarted = false;
 
-	let h3 = document.createElement('h3');
 	let randPhrase;
 	let charactersLoop;
 	let missed = 0;
@@ -63,10 +63,16 @@ document.addEventListener('DOMContentLoaded', () => {
 	var availableLetters = addPhraseToDisplay(phraseArray);
 
 	function removeHeart() {
-		var li = document.querySelector('li.tries');
-		li.remove();
-		var lostHeart = createElementFromHTML('<img src="images/lostHeart.png" height="35px" width="30px">');
-		ol.appendChild(lostHeart);
+		ol.innerHTML = '';
+		for (var i = 0; i < heartsCounter; i++) {
+			var heart = createElementFromHTML('<img src="images/liveHeart.png" height="35px" width="30px">');
+			
+			if (i < missed) {
+				heart = createElementFromHTML('<img src="images/lostHeart.png" height="35px" width="30px">');
+			}
+
+			ol.appendChild(heart);
+		}
 	}
 
 	function screenState(itswon) {
@@ -81,7 +87,6 @@ document.addEventListener('DOMContentLoaded', () => {
 		var lose = container.appendChild(divOverlay);
 		lose.className = stateClassName;
 		btnReset.textContent = "Try Again";
-		// var h3 = document.createElement('h3');
 		h3.textContent = message; 
 		divOverlay.appendChild(h3);
 	}
