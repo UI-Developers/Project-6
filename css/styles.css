@@ -1,21 +1,6 @@
 /* Main styles */
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700&Roboto:300');
 
-/* Variables */
-
-:root {
-  --color-win: #78CF82;
-  --color-lose: #D94545;
-  --color-start: #5b85b7;
-  --color-neutral: #445069;
-  --color-neutral-light: #D2D2D2;
-  --color-keys: #37474F;
-  --color-keys-light: #E5E5E5;
-  --font-size-large: 60px;
-  --font-size-medium: 20px;
-  --transition: all .2s ease-in-out;
-}
-
 /* main */
 
 * {
@@ -38,14 +23,14 @@ h2 {
   margin: 0;
   text-transform: uppercase;
   font-family: 'Open Sans', sans-serif;
-  font-size: var(--font-size-large);
+  font-size: 60px;
   margin: 0;
 }
 
 h3 {
   margin: 0;
   font-family: 'Open Sans', sans-serif;
-  font-size: var(--font-size-medium);
+  font-size: 20px;
   margin: 0;
 }
 
@@ -53,13 +38,18 @@ button {
   margin: 6px;
   border: 1px solid transparent;
   padding: .5rem 1rem;
-  color: var(--color-keys);
-  font-size: var(--font-size-medium);
-  background-color: var(--color-keys-light);
+  color: #37474F;
+  font-size: 20px;
+  background-color: #E5E5E5;
   border-radius: 5px;
-  -webkit-transition: var(--transition);
-  -o-transition: var(--transition);
-  transition: var(--transition);
+  -webkit-transition: all .2s ease-in-out;
+  -o-transition: all .2s ease-in-out;
+  transition: all .2s ease-in-out;
+}
+
+img {
+  height: 35px;
+  width: 30px;
 }
 
 .main-container {
@@ -79,19 +69,19 @@ button {
 /* Title */
 
 .header {
-  color: var(--color-start);
+  color: #5B85B7;
 }
 
 /* Phrase */
 
 .letter {
-  font-size: var(--font-size-medium);
+  font-size: 20px;
   height: 65px;
   width: 65px;
   padding: 20px 1px 0 1px;
   margin-right: 2px;
   color: transparent;
-  background: var(--color-neutral-light);
+  background: #D2D2D2;
   border-radius: 5px;
 }
 
@@ -112,16 +102,16 @@ button {
 }
 
 .chosen {
-  background: var(--color-neutral);
+  background: #445069;
   border-radius: 5px;
-  font-size: var(--font-size-medium);
+  font-size: 20px;
   color: #FFFFFF;
 }
 
 .error-chosen {
-  background: orange;
+  background: #D94545;
   border-radius: 5px;
-  font-size: var(--font-size-medium);
+  font-size: 20px;
   color: #FFFFFF;
 }
 
@@ -130,7 +120,7 @@ button {
   margin: 50px auto;
   background: #FFFFFF;
   border-radius: 5px;
-  font-size: var(--font-size-medium);
+  font-size: 20px;
 }
 
 /* Overlay */
@@ -153,25 +143,25 @@ button {
 }
 
 .start {
-  background-color: var(--color-start);
+  background-color: #5B85B7;
 }
 
 .start a {
-  color: var(--color-win);
+  color: #78CF82;
 }
 
 .win {
-  background-color: var(--color-win);
+  background-color: #78CF82;
 }
 
 .win a {
-  color: var(--color-win);
+  color: #78CF82;
 }
 
 .lose {
-  background-color: var(--color-lose);
+  background-color: #D94545;
 }
 
 .lose a {
-  color: var(--color-lose);
+  color: #D94545;
 }
